@@ -1,7 +1,6 @@
 package com.github.marco9999.directtalk;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -14,11 +13,6 @@ public class ConnectMenu extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		if (android.os.Build.VERSION.SDK_INT > 9) {
-			StrictMode.ThreadPolicy policy = 
-			        new StrictMode.ThreadPolicy.Builder().permitAll().build();
-			StrictMode.setThreadPolicy(policy);
-			}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connect_menu);
 	}
