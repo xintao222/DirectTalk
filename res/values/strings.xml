@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Direct Talk</string>
+    <string name="action_settings">Settings</string>
+    <string name="enter_address">Enter a valid host name:</string>
+    <string name="enter_port">Port (optional):</string>
+    <string name="connect">Connect</string>
+    <string name="status">Status: </string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected.</string>
+    <string name="connection_failed">Connection Failed.</string>
+    <string name="title_activity_message">Direct Talk</string>
+
+</resources>
