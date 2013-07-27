@@ -3,23 +3,45 @@ package com.github.marco9999.directtalk;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
 public class MessageWindow extends Activity
 {
+	static Handler mHandler;
+	
+	public MessageWindow()
+	{
+		// Setup message handler
+		mHandler = new Handler(Looper.getMainLooper()) 
+		{
+	        @Override
+	        public void handleMessage(Message inputMessage) 
+	        {
+	            String chat = (String) inputMessage.obj;
+	        }
+		};
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message_window);
-
+		
+		// Get intent & setup
 		Intent menuintent = getIntent();
 		String hoststring = null;
 		String portstring = null;
-
+		TextView status = (TextView) findViewById(R.id.message_window_status);
+		TextView host = (TextView) findViewById(R.id.message_window_host);
+		TextView port = (TextView) findViewById(R.id.message_window_port);
+		
+		// Get data (host and port)
 		Bundle ConnectInfo = menuintent.getExtras();
 		if (ConnectInfo != null)
 		{
@@ -30,19 +52,25 @@ public class MessageWindow extends Activity
 		}
 		else
 		{
+			// Oops! This shouldn't happen.
 			Log.e("DirectTalk", "Error: intent extra's empty!");
+			status.setText(R.string.connection_failed);
+			return;
 		}
-
+		
+		// Check if strings are empty
 		if (hoststring.isEmpty() || portstring.isEmpty())
 		{
 			Log.e("DirectTalk", "Error: Host or port empty!");
+			status.setText(R.string.connection_failed);
+			return;
 		}
-
-		TextView host = (TextView) findViewById(R.id.message_window_host);
-		TextView port = (TextView) findViewById(R.id.message_window_port);
+		
+		// Set status on UI
 		host.setText(hoststring);
 		port.setText(portstring);
-
+		
+		// Start Connection
 		MessageHandlerWorker connection = new MessageHandlerWorker(hoststring, portstring);
 		connection.start();
 		
