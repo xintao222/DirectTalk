@@ -33,7 +33,7 @@ public class MessageWindow extends Activity
 			Log.e("DirectTalk", "Error: intent extra's empty!");
 		}
 
-		if (hoststring == null && portstring == null)
+		if (hoststring.isEmpty() || portstring.isEmpty())
 		{
 			Log.e("DirectTalk", "Error: Host or port empty!");
 		}
