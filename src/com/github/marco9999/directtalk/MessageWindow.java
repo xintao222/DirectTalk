@@ -12,18 +12,27 @@ import android.widget.TextView;
 
 public class MessageWindow extends Activity
 {
-	static Handler mHandler;
-	
+	final Handler mHandler;
+	TextView lastmessage;
+
 	public MessageWindow()
 	{
 		// Setup message handler
-		mHandler = new Handler(Looper.getMainLooper()) 
+		mHandler = new Handler(Looper.getMainLooper())
 		{
-	        @Override
-	        public void handleMessage(Message inputMessage) 
-	        {
-	            String chat = (String) inputMessage.obj;
-	        }
+			@Override
+			public void handleMessage(Message inputMessage)
+			{
+				switch (inputMessage.what)
+				{
+				case HandlerConstants.MESSAGE_RECIEVED:
+					lastmessage.setText((String) inputMessage.obj);
+					break;
+				default:
+					super.handleMessage(inputMessage);
+					break;
+				}
+			}
 		};
 	}
 
@@ -32,7 +41,7 @@ public class MessageWindow extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message_window);
-		
+
 		// Get intent & setup
 		Intent menuintent = getIntent();
 		String hoststring = null;
@@ -40,7 +49,8 @@ public class MessageWindow extends Activity
 		TextView status = (TextView) findViewById(R.id.message_window_status);
 		TextView host = (TextView) findViewById(R.id.message_window_host);
 		TextView port = (TextView) findViewById(R.id.message_window_port);
-		
+		lastmessage = (TextView) findViewById(R.id.message_window_lastmessage);
+
 		// Get data (host and port)
 		Bundle ConnectInfo = menuintent.getExtras();
 		if (ConnectInfo != null)
@@ -57,7 +67,7 @@ public class MessageWindow extends Activity
 			status.setText(R.string.connection_failed);
 			return;
 		}
-		
+
 		// Check if strings are empty
 		if (hoststring.isEmpty() || portstring.isEmpty())
 		{
@@ -65,15 +75,16 @@ public class MessageWindow extends Activity
 			status.setText(R.string.connection_failed);
 			return;
 		}
-		
+
 		// Set status on UI
 		host.setText(hoststring);
 		port.setText(portstring);
-		
+
 		// Start Connection
-		MessageHandlerWorker connection = new MessageHandlerWorker(hoststring, portstring);
+		MessageHandlerWorker connection = new MessageHandlerWorker(hoststring,
+				portstring, this);
 		connection.start();
-		
+
 	}
 
 	@Override

@@ -24,13 +24,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f08000a;
         public static final int connect_menu_connect_button=0x7f080004;
         public static final int connect_menu_host=0x7f080000;
         public static final int connect_menu_hosttext=0x7f080001;
         public static final int connect_menu_port=0x7f080002;
         public static final int connect_menu_porttext=0x7f080003;
         public static final int message_window_host=0x7f080007;
+        public static final int message_window_lastmessage=0x7f080009;
         public static final int message_window_port=0x7f080008;
         public static final int message_window_status=0x7f080006;
         public static final int message_window_statusheader=0x7f080005;
