@@ -4,7 +4,7 @@
     <string name="app_name">Direct Talk</string>
     <string name="action_settings">Settings</string>
     <string name="enter_address">Enter a valid host name:</string>
-    <string name="enter_port">Port (optional):</string>
+    <string name="enter_port">Port (optional, default 4444):</string>
     <string name="connect">Connect</string>
     <string name="status">Status: </string>
     <string name="connecting">Connecting...</string>
