@@ -12,14 +12,12 @@ public class MessageHandlerWorker extends Thread
 {
 	String ip;
 	String port;
-	MessageWindow handler;
 	Socket connection;
 
-	public MessageHandlerWorker(String _ip, String _port, MessageWindow _handler)
+	public MessageHandlerWorker(String _ip, String _port)
 	{
 		ip = _ip;
 		port = _port;
-		handler = _handler;
 		connection = null;
 	}
 
@@ -91,8 +89,8 @@ public class MessageHandlerWorker extends Thread
 			while ((ch = input.read()) != -1)
 			{
 				Log.i("DirectTalk", "Read a byte: " + ch);
-				handler.mHandler.obtainMessage(
-						HandlerConstants.MESSAGE_RECIEVED, String.valueOf(ch))
+				DirectTalkGlobalRefs.get_handler().obtainMessage(
+						DirectTalkHandlerConstants.MESSAGE_RECIEVED, String.valueOf(ch))
 						.sendToTarget();
 			}
 		}
